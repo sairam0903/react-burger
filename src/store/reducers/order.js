@@ -1,12 +1,10 @@
-import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
-import reducer from './reducer';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     someThingElse: true
 };
 
-const reducer2 = (state = initialState, action) => {
+const order = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
             return {
@@ -21,9 +19,4 @@ const reducer2 = (state = initialState, action) => {
     }
 };
 
-const rootReducer = combineReducers({
-    reducer,
-    reducer2
-});
-
-export default rootReducer;
+export default order;
