@@ -61,7 +61,7 @@ export const purchaseBurger = (orderData) => {
     }
 };
 
-export const fetchOrders = (orderData) => {
+export const fetchOrders = () => {
     return dispatch => {
         dispatch(fetchOrdersStart());
         axios.get('/orders.json')
