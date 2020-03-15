@@ -4,21 +4,21 @@ import axios from "../../axios-orders";
 export const addIngredient = (name) => {
     return {
         ingredientName: name,
-        type:actionTypes.ADD_INGREDIENT
+        type: actionTypes.ADD_INGREDIENT
     }
 };
 
 export const removeIngredient = (name) => {
     return {
         ingredientName: name,
-        type:actionTypes.REMOVE_INGREDIENT
+        type: actionTypes.REMOVE_INGREDIENT
     }
 };
 
 export const setIngredients = (ingredients) => {
     return {
         ingredients: ingredients,
-        type:actionTypes.SET_INGREDIENTS
+        type: actionTypes.SET_INGREDIENTS
     }
 };
 

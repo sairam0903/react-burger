@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux'
 
 import Aux from '../../HOC/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
@@ -9,7 +10,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler';
-import * as actions from '../../store/actions';
+import {addIngredient, removeIngredient, initIngredients, purchaseInit} from '../../store/actions';
 
 class BurgerBuilder extends Component {
 
@@ -91,12 +92,12 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = dispatch => {
-    return {
-        onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(actions.initIngredients()),
-        onInitPurchase: () => dispatch(actions.purchaseInit())
-    }
+    return bindActionCreators({
+        onIngredientAdded: addIngredient,
+        onIngredientRemoved: removeIngredient,
+        onInitIngredients: initIngredients,
+        onInitPurchase: purchaseInit
+    }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
