@@ -10,7 +10,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler';
-import {addIngredient, removeIngredient, initIngredients, purchaseInit} from '../../store/actions';
+import {addIngredient, removeIngredient, initIngredients, purchaseInit, setAuthRedirectPath} from '../../store/actions';
 
 class BurgerBuilder extends Component {
 
@@ -27,7 +27,12 @@ class BurgerBuilder extends Component {
     }
 
     purchaseHandler = () => {
-        this.setState({purchasing: true});
+        if (this.props.isAuthenticated) {
+            this.setState({purchasing: true});
+        } else {
+            this.props.onSetAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
     };
 
     purchaseCancelHandler = () => {
@@ -61,6 +66,7 @@ class BurgerBuilder extends Component {
                                    disabled={disabledInfo}
                                    purchasable={this.updatePurchaseState(this.props.ingredients)}
                                    ordered={this.purchaseHandler}
+                                   isAuth={this.props.isAuthenticated}
                                    price={this.props.totalPrice}/>
                 </Aux>
             );
@@ -88,15 +94,18 @@ const mapStateToProps = state => {
     return {
         ingredients: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
+        isAuthenticated: !!state.auth.token
     }
 };
+
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         onIngredientAdded: addIngredient,
         onIngredientRemoved: removeIngredient,
         onInitIngredients: initIngredients,
-        onInitPurchase: purchaseInit
+        onInitPurchase: purchaseInit,
+        onSetAuthRedirectPath: setAuthRedirectPath
     }, dispatch);
 };
 
