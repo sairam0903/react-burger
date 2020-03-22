@@ -46,7 +46,7 @@ class Auth extends Component {
 
     componentDidMount() {
         if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
-            this.props.onaSetAuthRedirectPath('/');
+            this.props.onSetAuthRedirectPath('/');
         }
     }
 
@@ -172,7 +172,7 @@ class Auth extends Component {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         onAuth: auth,
-        onaSetAuthRedirectPath: setAuthRedirectPath
+        onSetAuthRedirectPath: setAuthRedirectPath
     }, dispatch);
 };
 
